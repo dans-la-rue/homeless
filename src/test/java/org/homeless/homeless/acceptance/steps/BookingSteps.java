@@ -1,9 +1,9 @@
-package com.dakar.dakar.acceptance.steps;
+package org.homeless.homeless.acceptance.steps;
 
-import com.dakar.dakar.models.GraphQLParameter;
-import com.dakar.dakar.models.Shelter;
-import com.dakar.dakar.models.SimpleExecutionResult;
-import com.dakar.dakar.services.interfaces.IShelterService;
+import org.homeless.homeless.models.GraphQLParameter;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.models.SimpleExecutionResult;
+import org.homeless.homeless.services.interfaces.IShelterService;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
