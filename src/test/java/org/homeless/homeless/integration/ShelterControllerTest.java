@@ -1,8 +1,8 @@
-package com.dakar.dakar.integration;
+package org.homeless.homeless.integration;
 
-import com.dakar.dakar.models.GraphQLParameter;
-import com.dakar.dakar.models.Shelter;
-import com.dakar.dakar.models.SimpleExecutionResult;
+import org.homeless.homeless.models.GraphQLParameter;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.models.SimpleExecutionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

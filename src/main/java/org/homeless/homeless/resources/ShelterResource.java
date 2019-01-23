@@ -1,14 +1,13 @@
-package com.dakar.dakar.resources;
+package org.homeless.homeless.resources;
 
-import com.dakar.dakar.models.Shelter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.hateoas.ResourceSupport;
+import org.homeless.homeless.models.Shelter;
 
 @Getter
 @Setter
-public class ShelterResource extends ResourceSupport {
+public class ShelterResource {
 
     @JsonUnwrapped
     private Shelter shelter;

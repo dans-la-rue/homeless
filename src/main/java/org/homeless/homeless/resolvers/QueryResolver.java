@@ -1,8 +1,8 @@
-package com.dakar.dakar.resolvers;
+package org.homeless.homeless.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.dakar.dakar.models.Shelter;
-import com.dakar.dakar.services.interfaces.IShelterService;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.services.interfaces.IShelterService;
 
 import java.util.List;
 

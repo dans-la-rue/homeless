@@ -1,4 +1,4 @@
-package com.dakar.dakar.models;
+package org.homeless.homeless.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

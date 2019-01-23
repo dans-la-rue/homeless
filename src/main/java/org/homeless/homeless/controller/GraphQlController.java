@@ -1,6 +1,6 @@
-package com.dakar.dakar.controller;
+package org.homeless.homeless.controller;
 
-import com.dakar.dakar.models.GraphQLParameter;
+import org.homeless.homeless.models.GraphQLParameter;
 import graphql.ExecutionInput;
 import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;

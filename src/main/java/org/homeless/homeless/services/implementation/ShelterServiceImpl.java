@@ -1,8 +1,8 @@
-package com.dakar.dakar.services.implementation;
+package org.homeless.homeless.services.implementation;
 
-import com.dakar.dakar.models.Shelter;
-import com.dakar.dakar.repositories.ShelterRepository;
-import com.dakar.dakar.services.interfaces.IShelterService;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.repositories.ShelterRepository;
+import org.homeless.homeless.services.interfaces.IShelterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,8 @@ public class ShelterServiceImpl implements IShelterService {
     }*/
 
     @Override
-    public Flux<Shelter> saveShelter(Mono<Shelter> Shelter) {
-        return ShelterRepository.saveAll(shelter);
+    public Flux<Shelter> saveShelter(Mono<Shelter> shelter) {
+        return null;
+//        return shelterRepository.saveAll(shelter);
     }
 }

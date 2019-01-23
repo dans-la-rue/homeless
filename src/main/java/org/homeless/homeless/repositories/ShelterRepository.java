@@ -1,15 +1,12 @@
-package com.dakar.dakar.repositories;
+package org.homeless.homeless.repositories;
 
-import com.dakar.dakar.models.Shelter;
-import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
-import org.springframework.data.couchbase.core.query.ViewIndexed;
-import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository;
+import org.homeless.homeless.models.Shelter;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface ShelterRepository extends {
+public interface ShelterRepository {
 
     Flux<Shelter> findAll();
 

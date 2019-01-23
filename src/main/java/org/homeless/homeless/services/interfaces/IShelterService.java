@@ -1,10 +1,11 @@
-package com.dakar.dakar.services.interfaces;
+package org.homeless.homeless.services.interfaces;
 
-import com.dakar.dakar.models.Shelter;
+import org.homeless.homeless.models.Shelter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface IShelterService {
+    
     Mono<Shelter> findByDestination(String countryName);
 
     Flux<Shelter> allShelter();

@@ -1,6 +1,6 @@
-package com.dakar.dakar.integration;
+package org.homeless.homeless.integration;
 
-import com.dakar.dakar.models.Shelter;
+import org.homeless.homeless.models.Shelter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

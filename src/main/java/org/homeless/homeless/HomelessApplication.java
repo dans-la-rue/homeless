@@ -1,10 +1,10 @@
-package com.dakar.dakar;
+package org.homeless.homeless;
 
 import com.coxautodev.graphql.tools.SchemaParser;
-import com.dakar.dakar.resolvers.ShelterResolver;
-import com.dakar.dakar.resolvers.MutationResolver;
-import com.dakar.dakar.resolvers.QueryResolver;
-import com.dakar.dakar.services.interfaces.IShelterService;
+import org.homeless.homeless.resolvers.ShelterResolver;
+import org.homeless.homeless.resolvers.MutationResolver;
+import org.homeless.homeless.resolvers.QueryResolver;
+import org.homeless.homeless.services.interfaces.IShelterService;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import org.springframework.beans.factory.annotation.Autowired;

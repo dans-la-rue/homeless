@@ -1,8 +1,8 @@
-package com.dakar.dakar.unit;
+package org.homeless.homeless.unit;
 
-import com.dakar.dakar.models.Shelter;
-import com.dakar.dakar.repositories.ShelterRepository;
-import com.dakar.dakar.services.implementation.ShelterServiceImpl;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.repositories.ShelterRepository;
+import org.homeless.homeless.services.implementation.ShelterServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +52,7 @@ public class DakarApplicationUnitTests {
         Shelter shelter = new Shelter();
         Mono<Shelter> shelterMono = Mono.just(shelter);
 
-        when(shelterRepository.saveAll((Publisher<Shelter>) any())).thenReturn(Flux.just(shelter));
+//        when(shelterRepository.saveAll((Publisher<Shelter>) any())).thenReturn(Flux.just(shelter));
 
         Flux<Shelter> shelterInserted = shelterService.saveShelter(shelterMono);
         //TODO : check the business rules instead of just the values

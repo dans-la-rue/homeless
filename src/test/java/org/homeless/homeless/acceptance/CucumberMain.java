@@ -1,4 +1,4 @@
-package com.dakar.dakar.acceptance;
+package org.homeless.homeless.acceptance;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
