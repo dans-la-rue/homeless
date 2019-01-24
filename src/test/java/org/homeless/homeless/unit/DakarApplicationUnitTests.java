@@ -41,7 +41,7 @@ public class DakarApplicationUnitTests {
     @Test
     //stupid test
     public void gotAllShelter() {
-        when(shelterRepository.findAll()).thenReturn(Flux.just(new Shelter()));
+//        when(shelterRepository.findAll()).thenReturn(Flux.just(new Shelter()));
 
         List<Shelter> shelterList = shelterService.allShelter().collectList().block();
         assertNotNull(shelterList);

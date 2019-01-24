@@ -13,8 +13,12 @@ import reactor.core.publisher.Mono;
 @Service
 public class ShelterServiceImpl implements IShelterService {
 
+    private final ShelterRepository shelterRepository;
+
     @Autowired
-    private ShelterRepository shelterRepository;
+    public ShelterServiceImpl(ShelterRepository shelterRepository) {
+        this.shelterRepository = shelterRepository;
+    }
 
     @Override
     public Mono<Shelter> findByDestination(String destination) {
@@ -34,7 +38,7 @@ public class ShelterServiceImpl implements IShelterService {
     @Override
     public Flux<Shelter> allShelter() {
         // http://javasampleapproach.com/reactive-programming/reactor/reactor-convert-flux-into-list-map-reactive-programming
-        return this.shelterRepository.findAll();
+        return Flux.fromIterable(this.shelterRepository.findAll());
     }
 
     /**
