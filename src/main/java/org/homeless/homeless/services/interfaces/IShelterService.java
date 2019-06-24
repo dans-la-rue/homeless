@@ -1,16 +1,16 @@
 package org.homeless.homeless.services.interfaces;
 
 import org.homeless.homeless.models.Shelter;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 public interface IShelterService {
-    
-    Mono<Shelter> findByDestination(String countryName);
 
-    Flux<Shelter> allShelter();
+    Shelter findByDestination(String countryName);
 
-    Flux<Shelter> saveShelter(Mono<Shelter> shelter);
+    List<Shelter> allShelter();
+
+    Shelter saveShelter(Shelter shelter);
 
 //    void fillDbWithDumbData();
 }

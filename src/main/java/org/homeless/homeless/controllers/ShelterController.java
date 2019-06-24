@@ -1,0 +1,50 @@
+package org.homeless.homeless.controllers;
+
+import org.homeless.homeless.exceptions.ResourceNotFoundException;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.repositories.ShelterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@RestController
+public class ShelterController {
+
+    @Autowired
+    private ShelterRepository shelterRepository;
+
+    @GetMapping("/shelters")
+    public Page<Shelter> getShelters(Pageable pageable) {
+        return shelterRepository.findAll(pageable);
+    }
+
+    @PostMapping("/shelters")
+    public Shelter createShelter(@Valid @RequestBody Shelter shelter) {
+        return shelterRepository.save(shelter);
+    }
+
+    @PutMapping("/shelters/{shelterId}")
+    public Shelter updateShelter(@PathVariable String shelterId,
+                                 @Valid @RequestBody Shelter shelterRequest) {
+        return shelterRepository.findById(shelterId)
+                .map(shelter -> {
+                    shelter.setAddress(shelterRequest.getAddress());
+                    shelter.setAvailableBeds(shelterRequest.getAvailableBeds());
+                    return shelterRepository.save(shelter);
+                }).orElseThrow(() -> new ResourceNotFoundException("Shelter not found with id " + shelterId));
+    }
+
+
+    @DeleteMapping("/shelters/{shelterId}")
+    public ResponseEntity<?> deleteShelter(@PathVariable String shelterId) {
+        return shelterRepository.findById(shelterId)
+                .map(shelter -> {
+                    shelterRepository.delete(shelter);
+                    return ResponseEntity.ok().build();
+                }).orElseThrow(() -> new ResourceNotFoundException("Shelter not found with id " + shelterId));
+    }
+}

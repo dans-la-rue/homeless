@@ -1,21 +1,15 @@
 package org.homeless.homeless.acceptance.steps;
 
-import org.homeless.homeless.models.GraphQLParameter;
-import org.homeless.homeless.models.Shelter;
-import org.homeless.homeless.models.SimpleExecutionResult;
-import org.homeless.homeless.services.interfaces.IShelterService;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.homeless.homeless.models.Shelter;
+import org.homeless.homeless.services.interfaces.IShelterService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.BodyInserters;
-import reactor.core.publisher.Mono;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,31 +30,13 @@ public class BookingSteps {
 	@Given("^These shelters have been created$")
 	public void user_wants_to_go_to_a_shelter() {
 		Shelter shelter = new Shelter();
-		shelter.setDestination("Vietnam");
-		shelter.setOwner("Dakar");
-		shelterService.saveShelter(Mono.just(shelter));
-	}
-
-	@When("^(.*) search a destination: (.*)")
-	public void user_chose_a_destination_Vietnam(String userName, String destination) {
-		GraphQLParameter graphQLParameter = new GraphQLParameter();
-//		TODO put the correct query here 
-		graphQLParameter.setQuery("{allShelter {destination\nprice}}");
-		this.webClient.post().uri("/graphql")
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromObject(graphQLParameter))
-				.exchange()
-				.expectStatus()
-				.isOk()
-				.expectBody(SimpleExecutionResult.class)
-				.consumeWith(executionResult -> {
-					executionResult.getResponseBody().getData();
-					shelterFetched = new Shelter();
-				});
+		shelter.setAddress("Vietnam");
+		shelter.setAvailableBeds(3);
+		shelterService.saveShelter(shelter);
 	}
 
 	@Then("^(.*) find (.*) destinations matching (.*)$")
-	public void shelter_is_created(String userNAme, String nbrMatches, String shelterExpected) {
-		assertEquals(shelterExpected, shelterFetched.getDestination());
+	public void shelter_is_created(String userName, String nbrMatches, String shelterExpected) {
+		assertEquals(shelterExpected, shelterFetched.getAddress());
 	}
 }

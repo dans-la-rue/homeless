@@ -4,10 +4,10 @@ Feature: Save a shelter
 
   Scenario Outline: Save a shelter
     When <userName> create the shelter for destination: <destination>
-    Then The shelter <destination> is created with <userName> as owner
+    Then The shelter <userName> is created with <destination> as owner
     Examples:
       | userName | destination |
-      | Dakar    | Vietnam     |
+      | Dakar    | 4           |
 
 
   Scenario Outline: Search all the shelters that I contributed to

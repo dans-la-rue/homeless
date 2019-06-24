@@ -3,17 +3,13 @@ package org.homeless.homeless.repositories;
 import org.homeless.homeless.models.Shelter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Mono;
-
-import javax.persistence.Table;
 
 @Repository
-@Table(name = "customer")
 public interface ShelterRepository extends JpaRepository<Shelter, String> {
 
 //    Flux<Shelter> findAll();
 
-    Mono<Shelter> findFirstByDestination(String destination);
+    Shelter findFirstByAddress(String address);
 
 //    /**
 //     * 
