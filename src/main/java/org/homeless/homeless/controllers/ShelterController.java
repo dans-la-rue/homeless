@@ -17,7 +17,7 @@ public class ShelterController {
     @Autowired
     private ShelterRepository shelterRepository;
 
-    @GetMapping("/shelters")
+    @GetMapping("/api/shelters")
     public Page<Shelter> getShelters(Pageable pageable) {
         return shelterRepository.findAll(pageable);
     }
