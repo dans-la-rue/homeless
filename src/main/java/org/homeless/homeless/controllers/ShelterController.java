@@ -1,5 +1,6 @@
 package org.homeless.homeless.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.homeless.homeless.exceptions.ResourceNotFoundException;
 import org.homeless.homeless.models.Shelter;
 import org.homeless.homeless.repositories.ShelterRepository;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
+@Slf4j
 public class ShelterController {
 
     @Autowired
@@ -20,6 +22,7 @@ public class ShelterController {
 
     @GetMapping("/shelters")
     public Page<Shelter> getShelters(Pageable pageable) {
+        log.info("shelters");
         return shelterRepository.findAll(pageable);
     }
 
