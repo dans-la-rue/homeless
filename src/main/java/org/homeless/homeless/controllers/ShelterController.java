@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ShelterController {
 
     @Autowired
     private ShelterRepository shelterRepository;
 
-    @GetMapping("/api/shelters")
+    @GetMapping("/shelters")
     public Page<Shelter> getShelters(Pageable pageable) {
         return shelterRepository.findAll(pageable);
     }
