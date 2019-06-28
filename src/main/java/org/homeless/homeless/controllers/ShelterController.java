@@ -1,6 +1,7 @@
 package org.homeless.homeless.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.homeless.homeless.exceptions.MonException;
 import org.homeless.homeless.exceptions.ResourceNotFoundException;
 import org.homeless.homeless.models.Shelter;
 import org.homeless.homeless.repositories.ShelterRepository;
@@ -23,7 +24,9 @@ public class ShelterController {
     @GetMapping("/shelters")
     public Page<Shelter> getShelters(Pageable pageable) {
         log.info("shelters");
-        return shelterRepository.findAll(pageable);
+//        throw new ResourceNotFoundException("yop");
+        throw new MonException("yop");
+//        return shelterRepository.findAll(pageable);
     }
 
     @PostMapping("/shelters")
