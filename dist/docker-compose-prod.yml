@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+  app:
+    image: "danslarue/homeless:latest"
+    ports:
+      - "9090:8080"
+    container_name: 'app-homeless'
+    environment:
+      - db-password=example
+    networks:
+      - dakar-network
+
+  db:
+    image: postgres
+    restart: always
+    container_name: 'app-db'
+    volumes:
+      - post:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: example
+    networks:
+      - dakar-network
+
+  adm:
+    image: adminer
+    restart: always
+    container_name: 'app-adm'
+    ports:
+      - 7070:8080
+    networks:
+      - dakar-network
+
+networks:
+  dakar-network:
+    driver: bridge
+volumes:
+  post:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/dreaser/homeless/postgres/var/lib/postgresql/data
+      o: bind
