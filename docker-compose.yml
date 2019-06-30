@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    image: "danslarue/homeless:latest"
+    build: .
+    ports:
+     - "9090:8080"
+    container_name: 'app-homeless'
+    networks:
+      - dakar-network
+    environment:
+      - db-password=F5OIWZbXrLCKGLCJJ9CJkkJdE59aLZI-
+networks:
+    dakar-network:
+        driver: bridge
