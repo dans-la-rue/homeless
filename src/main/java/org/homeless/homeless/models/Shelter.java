@@ -1,5 +1,6 @@
 package org.homeless.homeless.models;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Table(name = "shelters")
-public class Shelter  extends AuditModel {
+//@Table(name = "shelter", schema = "public")
+public class Shelter extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @ApiModelProperty(hidden = true)
+    private Integer id;
     private String address;
     private Integer availableBeds;
 }

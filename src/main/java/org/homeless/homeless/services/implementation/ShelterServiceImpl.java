@@ -17,14 +17,15 @@ public class ShelterServiceImpl implements IShelterService {
     private ShelterRepository shelterRepository;
 
     @Override
-    public Shelter findByDestination(String adresse) {
+    public Shelter findByDestination(String address) {
         //TODO : business checks before insert
-        return shelterRepository.findFirstByAddress(adresse);
+        return shelterRepository.findFirstByAddress(address);
     }
 
     /**
-     * we should never do this kind of requests
-     * @return Flux of all Shelters
+     * We should never do this kind of requests
+     * 
+     * @return List of all Shelters
      */
     @Override
     public List<Shelter> allShelter() {

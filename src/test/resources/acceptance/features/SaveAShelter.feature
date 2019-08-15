@@ -3,7 +3,7 @@ Feature: Save a shelter
   As a driver, I want to save the shelter I made with my friends so that other peoples can book the same shelter
 
   Scenario Outline: Save a shelter
-    When <userName> create the shelter for destination: <destination>
+    When <userName> creates the shelter: <destination>
     Then The shelter <userName> is created with <destination> as owner
     Examples:
       | userName | destination |

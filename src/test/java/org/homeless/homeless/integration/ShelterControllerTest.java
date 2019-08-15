@@ -16,14 +16,14 @@ public class ShelterControllerTest {
     private WebTestClient webClient;
 
     /**
-     * create a shelter with GraphQL
+     * create a shelter 
      */
 
     /**
-     * try to create a shelter with GraphQL but get an error
+     * try to create a shelter but get an error
      */
 
     /**
-     * find a shelter by destination using graphql
+     * find a shelter by destination 
      */
 }

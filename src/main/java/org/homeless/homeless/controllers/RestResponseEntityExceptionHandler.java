@@ -18,21 +18,17 @@ import java.io.IOException;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
-     * Build my own custom message
+     * Build my own custom message using the spring feature
      *
-     * @param ex
-     * @param request
-     * @return
-     * @throws IOException
+     * @param ex the exception that has been intercepted
+     * @param request the web request 
+     * @return an error response entity that will be sent s
      */
     @ExceptionHandler(value = {ResourceNotFoundException.class})
-    protected ResponseEntity<Object> handleConflict(ResourceNotFoundException ex, WebRequest request) throws IOException {
+    protected ResponseEntity<Object> handleConflict(ResourceNotFoundException ex, WebRequest request) {
         ApiError error = new ApiError();
-        error.setMessage("This should be application specific");
+        error.setMessage(ex.getMessage());
         return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.CONFLICT, request);
-//        return new ResponseEntity<>(, HttpStatus.NOT_FOUND);
-//        response.sendError(404, " tt");
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     /**
@@ -42,9 +38,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
      * <p>
      * same behavior if you simply do not handle the exception and put this annotation in the Exception definition @ResponseStatus(HttpStatus.NOT_FOUND)
      *
-     * @param ex
-     * @param request
-     * @return
+     * @param ex the exception that has been intercepted
+     * @param response the web response 
+     * @return a basic servlet exception
      * @throws IOException
      */
     @ExceptionHandler({MonException.class})

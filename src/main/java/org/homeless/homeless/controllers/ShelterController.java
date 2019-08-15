@@ -23,20 +23,23 @@ public class ShelterController {
 
     @GetMapping("/shelters")
     public Page<Shelter> getShelters(Pageable pageable) {
-        log.info("shelters");
+        log.info("get shelters");
+        // examples of things I can throw and that will be catch by the controller advice
 //        throw new ResourceNotFoundException("yop");
-        throw new MonException("yop");
-//        return shelterRepository.findAll(pageable);
+//        throw new MonException("yop");
+        return shelterRepository.findAll(pageable);
     }
 
     @PostMapping("/shelters")
     public Shelter createShelter(@Valid @RequestBody Shelter shelter) {
+        log.info("post shelters");
         return shelterRepository.save(shelter);
     }
 
     @PutMapping("/shelters/{shelterId}")
-    public Shelter updateShelter(@PathVariable String shelterId,
+    public Shelter updateShelter(@PathVariable Integer shelterId,
                                  @Valid @RequestBody Shelter shelterRequest) {
+        log.info("put shelters");
         return shelterRepository.findById(shelterId)
                 .map(shelter -> {
                     shelter.setAddress(shelterRequest.getAddress());
@@ -47,7 +50,8 @@ public class ShelterController {
 
 
     @DeleteMapping("/shelters/{shelterId}")
-    public ResponseEntity<?> deleteShelter(@PathVariable String shelterId) {
+    public ResponseEntity<?> deleteShelter(@PathVariable Integer shelterId) {
+        log.info("delete shelters");
         return shelterRepository.findById(shelterId)
                 .map(shelter -> {
                     shelterRepository.delete(shelter);
