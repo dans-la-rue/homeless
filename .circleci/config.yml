@@ -143,15 +143,12 @@ workflows:
       - build
   build-deploy-push-vps:
     jobs:
-      - build-and-push-testdb:
+      - build:
           filters:
             branches:
               only:
                 - develop
                 - master
-      - build:
-          requires:
-            - build-and-push-testdb
       - maven-deploy:
           requires:
             - build
