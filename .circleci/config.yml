@@ -1,0 +1,163 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - run:
+          name: maven install
+          command: |
+            mvn source:jar javadoc:jar install -DcreateChecksum=true -e
+            cp ./.circleci/deploy.sh /home/circleci/project/target/deploy.sh
+            cp ./.circleci/settings.xml /home/circleci/project/target/settings.xml
+            cp ./.circleci/docker-compose-prod.yml /home/circleci/project/target/docker-compose-prod.yml
+            ls -la /home/circleci/.m2/repository/org/homeless/homeless/
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - save_cache:
+          paths:
+            - /home/circleci/project/target/
+          key: v1-artifacts-{{ checksum "pom.xml" }}
+
+      - persist_to_workspace:
+          root: /home/circleci/
+          paths:
+            - project/target/*
+
+      - store_artifacts:
+          path: /home/circleci/.m2/repository/org/homeless/homeless/
+
+  maven-deploy:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-artifacts-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-artifacts-
+
+      - run: mvn dependency:go-offline
+
+      - attach_workspace:
+          at: /home/circleci/
+
+      - run:
+          name: maven deploy
+          command: |
+            cp ./target/settings.xml ~/.m2 
+            ls -la /home/circleci/project/target/
+            mvn source:jar javadoc:jar deploy -DskipTests -DcreateChecksum=true
+
+      - store_artifacts:
+          path: /home/circleci/.m2/repository/org/homeless/homeless/
+
+  docker-build-push:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-artifacts-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-artifacts-
+
+      - attach_workspace:
+          at: /home/circleci
+
+      - run:
+          name: docker build
+          command: |
+            pwd
+            ls -l
+            ls -l target
+            docker login -p $DOCKER_PWD -u $DOCKER_USR
+            mvn dockerfile:build dockerfile:push
+
+      - persist_to_workspace:
+          root: /home/circleci/
+          paths:
+            - project/target/*
+
+  ssh-deploy-in-vps:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - attach_workspace:
+          at: /home/circleci/
+      - run:
+          name: deploy on vps
+          command: |
+            pwd
+            ls -la
+            cd /home/circleci/project/target
+            scp -oStrictHostKeyChecking=no ./deploy.sh dreaser@homeless.lambla.eu:/opt/danslarue/deploy.sh
+            scp -oStrictHostKeyChecking=no ./docker-compose-prod.yml dreaser@homeless.lambla.eu:/opt/danslarue/docker-compose-prod.yml
+            ssh -oStrictHostKeyChecking=no dreaser@homeless.lambla.eu "
+            /opt/danslarue/deploy.sh"
+      - add_ssh_keys:
+          fingerprints:
+            - "32:e4:94:57:e8:e3:04:a1:65:a7:a7:49:a7:e2:e8:56"
+
+
+
+
+
+
+
+workflows:
+  version: 2
+
+  just-build:
+    jobs:
+      - build
+  build-deploy-push-vps:
+    jobs:
+      - build-and-push-testdb:
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+      - build:
+          requires:
+            - build-and-push-testdb
+      - maven-deploy:
+          requires:
+            - build
+      - docker-build-push:
+          requires:
+            - build
+      - ssh-deploy-in-vps:
+          requires:
+            - docker-build-push
