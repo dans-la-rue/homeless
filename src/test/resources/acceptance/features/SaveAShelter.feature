@@ -7,7 +7,7 @@ Feature: Save a shelter
     Then The shelter <userName> is created with <destination> as owner
     Examples:
       | userName | destination |
-      | Dakar    | 4           |
+      | Dakar    | 3           |
 
 
   Scenario Outline: Search all the shelters that I contributed to

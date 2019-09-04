@@ -2,6 +2,7 @@ package org.homeless.homeless.acceptance;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.homeless.homeless.acceptance.steps.SaveAShelterSteps;
 import org.junit.runner.RunWith;
 
 /**
@@ -14,6 +15,7 @@ import org.junit.runner.RunWith;
         features = {"classpath:acceptance/features"},
         tags = {"not @ignore"}
 )
-public class CucumberMain {
+public class CucumberMain extends SaveAShelterSteps {
     //TODO as soon as we have a delete method, then setup a cleanup method that removes unwanted data from db
+    //TODO completely remake the tests
 }
