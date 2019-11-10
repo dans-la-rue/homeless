@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 @Slf4j
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class DakarApplicationUnitTests {
+public class DakarApplicationUnitTest {
 
     @InjectMocks
     private ShelterServiceImpl shelterService;

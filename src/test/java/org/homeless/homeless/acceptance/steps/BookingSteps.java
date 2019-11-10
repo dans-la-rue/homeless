@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.homeless.homeless.models.Shelter;
 import org.homeless.homeless.services.interfaces.IShelterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,9 +17,6 @@ public class BookingSteps {
 
 	@Autowired
 	private IShelterService shelterService;
-
-	@Autowired
-	private WebTestClient webClient;
 
 	public BookingSteps(Shelter shelterFetched) {
 		this.shelterFetched = shelterFetched;
