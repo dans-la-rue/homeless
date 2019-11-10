@@ -2,22 +2,21 @@ version: '3.1'
 services:
   app:
     image: "danslarue/homeless:latest"
-    build: .
+    restart: "no"
     ports:
       - "9090:8080"
     container_name: 'app-homeless'
-    environment:
-      - db-password=F5OIWZbXrLCKGLCJJ9CJkkJdE59aLZI-
-#      - db-password=example
+    depends_on:
+      - db
+    env_file: .env
     networks:
       - dakar-network
 
   db:
     image: postgres
-    restart: always
+    restart: "no"
     container_name: 'app-db'
-    environment:
-      POSTGRES_PASSWORD: example
+    env_file: .env
     ports:
       - "5432:5432"
     networks:
@@ -25,7 +24,7 @@ services:
 
   adm:
     image: adminer
-    restart: always
+    restart: "no"
     container_name: 'app-adm'
     ports:
       - 7070:8080

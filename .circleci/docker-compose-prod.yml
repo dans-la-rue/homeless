@@ -2,22 +2,23 @@ version: '3.1'
 services:
   app:
     image: "danslarue/homeless:latest"
+    env_file: .env
+    restart: always
     ports:
       - "9090:8080"
     container_name: 'app-homeless'
-    environment:
-      - db-password=example
+    depends_on:
+      - db
     networks:
       - dakar-network
 
   db:
     image: postgres
     restart: always
+    env_file: .env
     container_name: 'app-db'
     volumes:
       - post:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: example
     networks:
       - dakar-network
 
