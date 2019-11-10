@@ -18,10 +18,6 @@ public class BookingSteps {
 	@Autowired
 	private IShelterService shelterService;
 
-	public BookingSteps(Shelter shelterFetched) {
-		this.shelterFetched = shelterFetched;
-	}
-
 	@Given("^These shelters have been created$")
 	public void user_wants_to_go_to_a_shelter() {
 		Shelter shelter = new Shelter();
