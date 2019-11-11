@@ -129,7 +129,7 @@ jobs:
             /home/dreaser/homeless/deploy.sh"
       - add_ssh_keys:
           fingerprints:
-            - "58:1a:86:7a:c5:f7:4c:d5:07:f1:21:ba:2c:21:ad:6d"
+            - "32:e4:94:57:e8:e3:04:a1:65:a7:a7:49:a7:e2:e8:56"
 
 
 
