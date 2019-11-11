@@ -1,9 +1,9 @@
-package org.homeless.homeless.integration;
+package org.danslarue.homeless.integration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.homeless.homeless.models.Shelter;
-import org.homeless.homeless.repositories.ShelterRepository;
-import org.homeless.homeless.services.implementation.ShelterServiceImpl;
+import org.danslarue.homeless.models.Shelter;
+import org.danslarue.homeless.repositories.ShelterRepository;
+import org.danslarue.homeless.services.implementation.ShelterServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

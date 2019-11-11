@@ -1,6 +1,6 @@
-package org.homeless.homeless.repositories;
+package org.danslarue.homeless.repositories;
 
-import org.homeless.homeless.models.Shelter;
+import org.danslarue.homeless.models.Shelter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

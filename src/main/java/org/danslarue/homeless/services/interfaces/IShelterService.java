@@ -1,6 +1,6 @@
-package org.homeless.homeless.services.interfaces;
+package org.danslarue.homeless.services.interfaces;
 
-import org.homeless.homeless.models.Shelter;
+import org.danslarue.homeless.models.Shelter;
 
 import java.util.List;
 

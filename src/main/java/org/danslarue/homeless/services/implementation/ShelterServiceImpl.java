@@ -1,9 +1,9 @@
-package org.homeless.homeless.services.implementation;
+package org.danslarue.homeless.services.implementation;
 
 import lombok.extern.slf4j.Slf4j;
-import org.homeless.homeless.models.Shelter;
-import org.homeless.homeless.repositories.ShelterRepository;
-import org.homeless.homeless.services.interfaces.IShelterService;
+import org.danslarue.homeless.models.Shelter;
+import org.danslarue.homeless.repositories.ShelterRepository;
+import org.danslarue.homeless.services.interfaces.IShelterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

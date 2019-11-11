@@ -1,4 +1,4 @@
-package org.homeless.homeless.acceptance;
+package org.danslarue.homeless.acceptance;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

@@ -1,4 +1,4 @@
-package org.homeless.homeless.models;
+package org.danslarue.homeless.models;
 
 import lombok.Data;
 

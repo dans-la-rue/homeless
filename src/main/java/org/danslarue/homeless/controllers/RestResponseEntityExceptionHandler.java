@@ -1,8 +1,8 @@
-package org.homeless.homeless.controllers;
+package org.danslarue.homeless.controllers;
 
-import org.homeless.homeless.exceptions.MonException;
-import org.homeless.homeless.exceptions.ResourceNotFoundException;
-import org.homeless.homeless.models.ApiError;
+import org.danslarue.homeless.exceptions.MonException;
+import org.danslarue.homeless.exceptions.ResourceNotFoundException;
+import org.danslarue.homeless.models.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

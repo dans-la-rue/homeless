@@ -1,11 +1,11 @@
-package org.homeless.homeless.acceptance.steps;
+package org.danslarue.homeless.acceptance.steps;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import lombok.extern.slf4j.Slf4j;
-import org.homeless.homeless.models.Shelter;
-import org.homeless.homeless.services.interfaces.IShelterService;
+import org.danslarue.homeless.models.Shelter;
+import org.danslarue.homeless.services.interfaces.IShelterService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
