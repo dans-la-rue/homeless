@@ -122,13 +122,14 @@ jobs:
             pwd
             ls -la
             cd /home/circleci/project/target
-            scp -oStrictHostKeyChecking=no ./deploy.sh dreaser@homeless.lambla.eu:/opt/danslarue/deploy.sh
-            scp -oStrictHostKeyChecking=no ./docker-compose-prod.yml dreaser@homeless.lambla.eu:/opt/danslarue/docker-compose-prod.yml
+            scp -oStrictHostKeyChecking=no ./deploy.sh dreaser@homeless.lambla.eu:/home/dreaser/homeless/deploy.sh
+            scp -oStrictHostKeyChecking=no ./docker-compose-prod.yml dreaser@homeless.lambla.eu:/home/dreaser/homeless/docker-compose-prod.yml
+            scp -oStrictHostKeyChecking=no ./.env dreaser@homeless.lambla.eu:/home/dreaser/homeless/.env
             ssh -oStrictHostKeyChecking=no dreaser@homeless.lambla.eu "
-            /opt/danslarue/deploy.sh"
+            /home/dreaser/homeless/deploy.sh"
       - add_ssh_keys:
           fingerprints:
-            - "32:e4:94:57:e8:e3:04:a1:65:a7:a7:49:a7:e2:e8:56"
+            - "58:1a:86:7a:c5:f7:4c:d5:07:f1:21:ba:2c:21:ad:6d"
 
 
 

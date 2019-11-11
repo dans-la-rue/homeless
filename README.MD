@@ -4,11 +4,16 @@
 ### build with maven
 
 mvn clean install dockerfile:build
+
 ### To launch only the app without dependencies
 
 `docker-compose -f docker-compose.yml up -d --no-deps app`
 
+### links
 
-Sources:  
+[frontend](https://homeless.lambla.eu/)
+[backend](https://homeless.lambla.eu:9090/swagger-ui.html#/)
 
-https://www.callicoder.com/spring-boot-jpa-hibernate-postgresql-restful-crud-api-example/  
+### Sources:  
+
+[callicoder](https://www.callicoder.com/spring-boot-jpa-hibernate-postgresql-restful-crud-api-example/)
