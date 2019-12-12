@@ -13,6 +13,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>homeless</docker.image.prefix>
+        <sonar.projectKey>dans-la-rue_homeless</sonar.projectKey>
+        <sonar.organization>dans-la-rue</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<licenses>

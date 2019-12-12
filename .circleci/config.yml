@@ -18,7 +18,7 @@ jobs:
       - run:
           name: maven install
           command: |
-            mvn source:jar javadoc:jar install -DcreateChecksum=true -e
+            mvn source:jar javadoc:jar install -DcreateChecksum=true -e sonar:sonar
             cp ./.circleci/deploy.sh /home/circleci/project/target/deploy.sh
             cp ./.circleci/settings.xml /home/circleci/project/target/settings.xml
             cp ./.circleci/.env /home/circleci/project/target/.env
@@ -140,6 +140,7 @@ workflows:
   just-build:
     jobs:
       - build
+          context: SonarCloud
 
 
   build-deploy-push-vps:
