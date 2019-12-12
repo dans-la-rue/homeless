@@ -147,6 +147,7 @@ workflows:
   build-deploy-push-vps:
     jobs:
       - build:
+          context: SonarCloud
           filters:
             branches:
               only:
