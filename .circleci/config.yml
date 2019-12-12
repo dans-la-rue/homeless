@@ -1,4 +1,5 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
@@ -139,7 +140,7 @@ workflows:
 
   just-build:
     jobs:
-      - build
+      - build:
           context: SonarCloud
 
 
