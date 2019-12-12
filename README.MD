@@ -1,5 +1,6 @@
 # README.md
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dans-la-rue_homeless&metric=alert_status)](https://sonarcloud.io/dashboard?id=dans-la-rue_homeless)
 
 ### build with maven
 
