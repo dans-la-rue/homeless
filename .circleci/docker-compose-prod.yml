@@ -1,56 +1,56 @@
 version: '3.1'
 
-  services:
-    app:
-      image: "danslarue/homeless:latest"
-      restart: always
-      ports:
-        - "9090:8080"
-      depends_on:
-        - app-db
-      deploy:
-        placement:
-          constraints:
-            - "node.labels.project==dakar"
-        labels:
-          - "traefik.enable=true"
-          - "traefik.http.routers.app.rule=Host(`homeless.project.lambla.eu`)"
-          - "traefik.http.routers.app.entrypoints=web"
-      networks:
-        - homeless_private
-        - traefik_traefik
-      environment:
-        - COMPOSE_PROJECT_NAME=homeless
-        - PROFILE=prod
-        - db-password=example
-        - POSTGRES_PASSWORD=example
-
-    app-db:
-      image: postgres
-      restart: always
-      volumes:
-        - post:/var/lib/postgresql/data
-      deploy:
-        placement:
-          constraints:
-            - "node.labels.project==dakar"
-      networks:
-        - homeless_private
-  adm:
-    image: adminer
+services:
+  app:
+    image: "danslarue/homeless:latest"
     restart: always
     ports:
-      - 7070:8080
+      - "9090:8080"
+    depends_on:
+      - app-db
     deploy:
       placement:
         constraints:
           - "node.labels.project==dakar"
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.adm.entrypoints=web"
+        - "traefik.http.routers.app.rule=Host(`homeless.project.lambla.eu`)"
+        - "traefik.http.routers.app.entrypoints=web"
     networks:
       - homeless_private
       - traefik_traefik
+    environment:
+      - COMPOSE_PROJECT_NAME=homeless
+      - PROFILE=prod
+      - db-password=example
+      - POSTGRES_PASSWORD=example
+
+  app-db:
+    image: postgres
+    restart: always
+    volumes:
+      - post:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints:
+          - "node.labels.project==dakar"
+    networks:
+      - homeless_private
+adm:
+  image: adminer
+  restart: always
+  ports:
+    - 7070:8080
+  deploy:
+    placement:
+      constraints:
+        - "node.labels.project==dakar"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adm.entrypoints=web"
+  networks:
+    - homeless_private
+    - traefik_traefik
 
 volumes:
   post:
