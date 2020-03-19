@@ -36,21 +36,22 @@ services:
           - "node.labels.project==dakar"
     networks:
       - homeless_private
-adm:
-  image: adminer
-  restart: always
-  ports:
-    - 7070:8080
-  deploy:
-    placement:
-      constraints:
-        - "node.labels.project==dakar"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.adm.entrypoints=web"
-  networks:
-    - homeless_private
-    - traefik_traefik
+
+  adm:
+    image: adminer
+    restart: always
+    ports:
+      - 7070:8080
+    deploy:
+      placement:
+        constraints:
+          - "node.labels.project==dakar"
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.adm.entrypoints=web"
+    networks:
+      - homeless_private
+      - traefik_traefik
 
 volumes:
   post:
