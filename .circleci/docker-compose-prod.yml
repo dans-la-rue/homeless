@@ -5,7 +5,7 @@ services:
     image: "danslarue/homeless:latest"
     restart: always
     depends_on:
-      - homeless-db
+      - db
     deploy:
       placement:
         constraints:
@@ -28,15 +28,16 @@ services:
       - traefik_traefik
     environment:
       - COMPOSE_PROJECT_NAME=homeless
-      - PROFILE=prod,ssl
+      - PROFILE=prod
       - db-password=example
-      - POSTGRES_PASSWORD=example
 
   db:
-    image: postgres
+    image: postgres:12
     restart: always
     volumes:
       - post:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=example
     deploy:
       placement:
         constraints:
