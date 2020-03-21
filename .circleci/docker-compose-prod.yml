@@ -1,31 +1,38 @@
 version: '3.1'
 
 services:
-  app:
+  homeless-api:
     image: "danslarue/homeless:latest"
     restart: always
-    ports:
-      - "9090:8080"
     depends_on:
-      - app-db
+      - homeless-db
     deploy:
       placement:
         constraints:
           - "node.labels.project==dakar"
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.app.rule=Host(`homeless.project.lambla.eu`)"
-        - "traefik.http.routers.app.entrypoints=web"
+        - "traefik.http.routers.homeless-api.rule=Host(`homeless.project.lambla.eu`)"
+        - "traefik.http.routers.homeless-api.entrypoints=web"
+        - "traefik.http.routers.homeless-ssl-api.rule=Host(`homeless.project.lambla.eu`)"
+        - "traefik.http.routers.homeless-ssl-api.entrypoints=websecure"
+        - "traefik.http.services.homeless-api.loadbalancer.server.port=8443"
+        - "traefik.docker.network=traefik_traefik"
+        - "traefik.http.routers.homeless-ssl-api.tls=true"
+        - "traefik.http.routers.homeless-ssl-api.tls.certresolver=myresolver"
+        - "traefik.http.middlewares.test-redirectscheme.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.test-redirectscheme.redirectscheme.permanent=true"
+        - "traefik.http.routers.homeless-api.middlewares=test-redirectscheme@docker"
     networks:
       - homeless_private
       - traefik_traefik
     environment:
       - COMPOSE_PROJECT_NAME=homeless
-      - PROFILE=prod
+      - PROFILE=prod,ssl
       - db-password=example
       - POSTGRES_PASSWORD=example
 
-  app-db:
+  homeless-db:
     image: postgres
     restart: always
     volumes:
@@ -37,18 +44,19 @@ services:
     networks:
       - homeless_private
 
-  adm:
+  adminer:
     image: adminer
     restart: always
-    ports:
-      - 7070:8080
     deploy:
       placement:
         constraints:
           - "node.labels.project==dakar"
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.adm.entrypoints=web"
+        - "traefik.http.routers.adminer.entrypoints=web,websecure"
+        - "traefik.http.routers.adminer.rule=Host(`adminer.project.lambla.eu`)"
+        - "traefik.http.services.adminer.loadbalancer.server.port=8080"
+        - "traefik.docker.network=traefik_traefik"
     networks:
       - homeless_private
       - traefik_traefik
