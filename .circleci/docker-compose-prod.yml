@@ -24,7 +24,7 @@ services:
         - "traefik.http.middlewares.test-redirectscheme.redirectscheme.permanent=true"
         - "traefik.http.routers.homeless-api.middlewares=test-redirectscheme@docker"
     networks:
-      - homeless_private
+      #- homeless_private
       - traefik_traefik
     environment:
       - COMPOSE_PROJECT_NAME=homeless
@@ -43,7 +43,7 @@ services:
         constraints:
           - "node.labels.project==dakar"
     networks:
-      - homeless_private
+      - traefik_traefik
 
   adminer:
     image: adminer
@@ -59,7 +59,7 @@ services:
         - "traefik.http.services.adminer.loadbalancer.server.port=8080"
         - "traefik.docker.network=traefik_traefik"
     networks:
-      - homeless_private
+      #- homeless_private
       - traefik_traefik
 
 volumes:
@@ -71,9 +71,9 @@ volumes:
       o: bind
 
 networks:
-  homeless_private:
-    driver: overlay
-    external: false
+  #  homeless_private:
+  #   driver: overlay
+  #  external: false
   traefik_traefik:
     driver: overlay
     external: true
