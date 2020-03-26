@@ -30,7 +30,7 @@ public class HomelessApplicationUnitTest {
     IShelterRepository shelterRepository;
 
     @Test
-    // check the business rules instead
+    // TODO check the business rules instead
     public void gotAllShelter() {
         List<Shelter> shelterList = new ArrayList<>();
         shelterList.add(new Shelter());

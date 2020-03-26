@@ -2,7 +2,7 @@ package org.danslarue.homeless.services.implementation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.danslarue.homeless.models.Shelter;
-import org.danslarue.homeless.repositories.ShelterRepository;
+import org.danslarue.homeless.repositories.IShelterRepository;
 import org.danslarue.homeless.services.interfaces.IShelterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ShelterServiceImpl implements IShelterService {
 
     @Autowired
-    private ShelterRepository shelterRepository;
+    private IShelterRepository shelterRepository;
 
     @Override
     public Shelter findByDestination(String address) {
