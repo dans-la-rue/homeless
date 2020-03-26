@@ -16,7 +16,7 @@ services:
         - "traefik.http.routers.homeless-api.entrypoints=web"
         - "traefik.http.routers.homeless-ssl-api.rule=Host(`homeless-api.project.lambla.eu`)"
         - "traefik.http.routers.homeless-ssl-api.entrypoints=websecure"
-        - "traefik.http.services.homeless-api.loadbalancer.server.port=443"
+        - "traefik.http.services.homeless-api.loadbalancer.server.port=8080"
         - "traefik.docker.network=traefik_traefik"
         - "traefik.http.routers.homeless-ssl-api.tls=true"
         - "traefik.http.routers.homeless-ssl-api.tls.certresolver=myresolver"
