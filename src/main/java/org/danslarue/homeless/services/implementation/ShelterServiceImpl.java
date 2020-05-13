@@ -29,7 +29,6 @@ public class ShelterServiceImpl implements IShelterService {
      */
     @Override
     public List<Shelter> allShelter() {
-        // http://javasampleapproach.com/reactive-programming/reactor/reactor-convert-flux-into-list-map-reactive-programming
         return this.shelterRepository.findAll();
     }
 

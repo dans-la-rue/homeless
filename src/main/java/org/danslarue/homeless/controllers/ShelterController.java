@@ -42,11 +42,11 @@ public class ShelterController {
         return shelterRepository.findById(shelterId)
                 .map(shelter -> {
                     shelter.setAddress(shelterRequest.getAddress());
+                    shelter.setNews(shelterRequest.getNews());
                     shelter.setAvailableBeds(shelterRequest.getAvailableBeds());
                     return shelterRepository.save(shelter);
                 }).orElseThrow(() -> new ResourceNotFoundException("Shelter not found with id " + shelterId));
     }
-
 
     @DeleteMapping("/shelters/{shelterId}")
     public ResponseEntity<?> deleteShelter(@PathVariable Integer shelterId) {

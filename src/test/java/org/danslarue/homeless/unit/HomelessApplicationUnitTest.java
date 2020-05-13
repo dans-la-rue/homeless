@@ -20,7 +20,6 @@ import static org.mockito.Mockito.when;
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-//@TestConfiguration
 public class HomelessApplicationUnitTest {
 
     @Autowired
@@ -31,7 +30,7 @@ public class HomelessApplicationUnitTest {
 
     @Test
     // TODO check the business rules instead
-    public void gotAllShelter() {
+    public void getAllShelter() {
         List<Shelter> shelterList = new ArrayList<>();
         shelterList.add(new Shelter());
         when(shelterRepository.findAll()).thenReturn(shelterList);

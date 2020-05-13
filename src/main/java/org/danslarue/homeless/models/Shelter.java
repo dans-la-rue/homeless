@@ -22,5 +22,6 @@ public class Shelter extends AuditModel {
     @ApiModelProperty(hidden = true)
     private Integer id;
     private String address;
+    private String news;
     private Integer availableBeds;
 }

@@ -6,10 +6,14 @@ import org.danslarue.homeless.repositories.IShelterRepository;
 import org.danslarue.homeless.services.interfaces.IShelterService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,9 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,16 +31,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@WebMvcTest(ShelterController.class)
 @AutoConfigureMockMvc
-//@DataJpaTest
 public class ShelterControllerTest {
 
-    // https://www.mkyong.com/spring-boot/spring-rest-integration-test-example/
-//    @Autowired
-//    private TestRestTemplate restTemplate;
-
-    @Autowired
+    @MockBean
     private IShelterService shelterService;
 
     @MockBean
@@ -46,22 +44,23 @@ public class ShelterControllerTest {
     private MockMvc mvc;
 
     @Test
-    // stupid tests
     // TODO check the business rules instead
     public void gotAllShelter() throws Exception {
         List<Shelter> shelterList = new ArrayList<>();
-        Shelter alex = new Shelter();
-        shelterList.add(alex);
+        Shelter myFirstShelter = new Shelter();
+        myFirstShelter.setAddress("toto");
+        shelterList.add(myFirstShelter);
+        Mockito.when(shelterService.allShelter()).thenReturn(shelterList);
+        Page<Shelter> page = new PageImpl<Shelter>(shelterList);
+        Mockito.when(shelterRepository.findAll(any(Pageable.class))).thenReturn(page);
         shelterList = shelterService.allShelter();
         assertNotNull(shelterList);
 
-        mvc.perform(get("/shelters")
+        mvc.perform(get("/api/v1/shelters")
                 .header("Authorization", "Basic " + "YWRtaW46bmltZGE=")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].address", is(alex.getAddress())));
-
+                .andExpect(jsonPath("$.content[0].address", is(myFirstShelter.getAddress())));
     }
 
     /**
@@ -74,5 +73,15 @@ public class ShelterControllerTest {
 
     /**
      * find a shelter by destination 
+     */
+
+    /**
+     * update a shelter
+     *
+     */
+
+    /**
+     * delete a shelter
+     *
      */
 }
