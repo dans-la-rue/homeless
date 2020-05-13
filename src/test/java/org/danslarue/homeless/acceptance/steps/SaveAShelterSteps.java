@@ -34,7 +34,7 @@ public class SaveAShelterSteps {
         shelterService.saveShelter(shelter);
     }
 
-    @Then("^The shelter (.*) is created with (\\d+) as owner$")
+    @Then("^The shelter (.*) is created with (\\d+) as address$")
     public void shelter_is_created(String shelterExpected, Integer beds) {
         assertNotNull(beds);
         assertNotNull(shelterExpected);
@@ -49,7 +49,7 @@ public class SaveAShelterSteps {
 
     @When("(.*) creates the shelter: (.*)")
     public void usernameCreatesTheShelterDestination(String a, String b) {
-        user_participated_to_the_creation_of_one_shelter("Dakar");
+        user_participated_to_the_creation_of_one_shelter("dreaser");
     }
 
     @When("(.*) search his shelters")
