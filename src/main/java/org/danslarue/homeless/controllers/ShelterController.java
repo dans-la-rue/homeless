@@ -1,6 +1,7 @@
 package org.danslarue.homeless.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.danslarue.homeless.dto.ShelterDTO;
 import org.danslarue.homeless.exceptions.ResourceNotFoundException;
 import org.danslarue.homeless.models.Shelter;
 import org.danslarue.homeless.repositories.IShelterRepository;
@@ -30,21 +31,23 @@ public class ShelterController {
     }
 
     @PostMapping("/shelters")
-    public Shelter createShelter(@Valid @RequestBody Shelter shelter) {
+    public Shelter createShelter(@Valid @RequestBody ShelterDTO shelter) {
         log.info("post shelters");
-        return shelterRepository.save(shelter);
+        Shelter persistedShelter = new Shelter(shelter);
+        return shelterRepository.save(persistedShelter);
     }
 
     @PutMapping("/shelters/{shelterId}")
     public Shelter updateShelter(@PathVariable Integer shelterId,
-                                 @Valid @RequestBody Shelter shelterRequest) {
+                                 @Valid @RequestBody ShelterDTO shelterRequest) {
         log.info("put shelters");
+        // TODO: This may be done directly without fetching the old version
         return shelterRepository.findById(shelterId)
-                .map(shelter -> {
-                    shelter.setAddress(shelterRequest.getAddress());
-                    shelter.setNews(shelterRequest.getNews());
-                    shelter.setAvailableBeds(shelterRequest.getAvailableBeds());
-                    return shelterRepository.save(shelter);
+                .map(persistedShelter -> {
+                    persistedShelter.setAddress(shelterRequest.getAddress());
+                    persistedShelter.setNews(shelterRequest.getNews());
+                    persistedShelter.setAvailableBeds(shelterRequest.getAvailableBeds());
+                    return shelterRepository.save(persistedShelter);
                 }).orElseThrow(() -> new ResourceNotFoundException("Shelter not found with id " + shelterId));
     }
 
@@ -52,8 +55,8 @@ public class ShelterController {
     public ResponseEntity<?> deleteShelter(@PathVariable Integer shelterId) {
         log.info("delete shelters");
         return shelterRepository.findById(shelterId)
-                .map(shelter -> {
-                    shelterRepository.delete(shelter);
+                .map(persistedShelter -> {
+                    shelterRepository.delete(persistedShelter);
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Shelter not found with id " + shelterId));
     }

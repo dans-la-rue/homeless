@@ -11,6 +11,4 @@ public interface IShelterService {
     List<Shelter> allShelter();
 
     Shelter saveShelter(Shelter shelter);
-
-//    void fillDbWithDumbData();
 }
