@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = {"org.homeless.homeless.acceptance.steps"},
+        glue = {"org.danslarue.homeless.acceptance.steps"},
         features = {"classpath:acceptance/features"},
         tags = {"not @ignore"}
 )
