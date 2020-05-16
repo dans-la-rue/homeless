@@ -1,39 +1,67 @@
 version: '3.1'
+
 services:
-  app:
+  api:
     image: "danslarue/homeless:latest"
-    env_file: .env
     restart: always
-    ports:
-      - "9090:8080"
-    container_name: 'app-homeless'
     depends_on:
       - db
+    deploy:
+      placement:
+        constraints:
+          - "node.labels.project==dakar"
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.homeless-api.rule=Host(`homeless-api.project.lambla.eu`)"
+        - "traefik.http.routers.homeless-api.entrypoints=web"
+        - "traefik.http.routers.homeless-ssl-api.rule=Host(`homeless-api.project.lambla.eu`)"
+        - "traefik.http.routers.homeless-ssl-api.entrypoints=websecure"
+        - "traefik.http.services.homeless-api.loadbalancer.server.port=8080"
+        - "traefik.docker.network=traefik_traefik"
+        - "traefik.http.routers.homeless-ssl-api.tls=true"
+        - "traefik.http.routers.homeless-ssl-api.tls.certresolver=myresolver"
+        - "traefik.http.middlewares.test-redirectscheme.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.test-redirectscheme.redirectscheme.permanent=true"
+        - "traefik.http.routers.homeless-api.middlewares=test-redirectscheme@docker"
     networks:
-      - dakar-network
+      #- homeless_private
+      - traefik_traefik
+    environment:
+      - COMPOSE_PROJECT_NAME=homeless
+      - PROFILE=prod
+      - db-password=example
 
   db:
-    image: postgres
+    image: postgres:12
     restart: always
-    env_file: .env
-    container_name: 'app-db'
+    environment:
+      - POSTGRES_PASSWORD=example
     volumes:
       - post:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints:
+          - "node.labels.project==dakar"
     networks:
-      - dakar-network
+      - traefik_traefik
 
-  adm:
+  adminer:
     image: adminer
     restart: always
-    container_name: 'app-adm'
-    ports:
-      - 7070:8080
+    deploy:
+      placement:
+        constraints:
+          - "node.labels.project==dakar"
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.adminer.entrypoints=web,websecure"
+        - "traefik.http.routers.adminer.rule=Host(`adminer.project.lambla.eu`)"
+        - "traefik.http.services.adminer.loadbalancer.server.port=8080"
+        - "traefik.docker.network=traefik_traefik"
     networks:
-      - dakar-network
+      #- homeless_private
+      - traefik_traefik
 
-networks:
-  dakar-network:
-    driver: bridge
 volumes:
   post:
     driver: local
@@ -41,3 +69,11 @@ volumes:
       type: none
       device: /home/dreaser/homeless/postgres/var/lib/postgresql/data
       o: bind
+
+networks:
+  #  homeless_private:
+  #   driver: overlay
+  #  external: false
+  traefik_traefik:
+    driver: overlay
+    external: true
